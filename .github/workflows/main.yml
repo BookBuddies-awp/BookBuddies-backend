@@ -17,7 +17,13 @@ jobs:
         with:
           to: -432159994
           token: 1464095906:AAFS2D2cRJWTTA5ATmZOJb2to1Ixm3QMjV0
-          message: ${{ github.event.head_commit.message }}
+          format: markdown
+          args: |
+            ```
+            Commit Message: ${{ github.event.head_commit.message }}
+            Commit Author: ${{ github.actor }}
+            ```
+
 
       # strategy:
       #   matrix:
