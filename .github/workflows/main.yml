@@ -1,0 +1,32 @@
+name: Node.js CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+      - run: npm install
+
+      - name: send custom message
+        uses: appleboy/telegram-action@master
+        with:
+          to: -432159994
+          token: 1464095906:AAFS2D2cRJWTTA5ATmZOJb2to1Ixm3QMjV0
+          format: markdown
+          args: |
+            ```
+            Commit Message: ${{ github.event.head_commit.message }}
+            Commit Author: ${{ github.actor }}
+            ```
+
+
+      # strategy:
+      #   matrix:
+      #     node-version: [8.x, 10.x, 12.x]
+
+      # - run: COMMITS=$(git log --graph --pretty=format:'%s (%cr)' --abbrev-commit | grep "minutes\| hours") && curl -X POST \-H 'Content-Type:application/json' \-d '{"chat_id":"-432159994", "text":"This is a test from curl", "disable_notification":true}' \https://api.telegram.org/bot1464095906:AAFS2D2cRJWTTA5ATmZOJb2to1Ixm3QMjV0/sendMessage
