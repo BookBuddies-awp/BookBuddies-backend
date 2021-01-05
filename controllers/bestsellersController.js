@@ -1,11 +1,6 @@
 const axios = require('axios').default;
-const redis = require('redis');
-const { promisify } = require('util');
+const { redisGet, redisSet } = require('../redis');
 
-const client = redis.createClient({ port: 6379 });
-
-const redisGet = promisify(client.get).bind(client);
-const redisSet = promisify(client.set).bind(client);
 
 const bestsellersController = async (req, res, next) => {
   const booksObj = [];
