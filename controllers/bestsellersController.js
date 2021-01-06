@@ -6,7 +6,7 @@ const bestsellersController = async (req, res, next) => {
   const booksObj = [];
   var count = 0;
 
-  const resp1 = await axios.get('http://localhost:3000/bestsellers');
+  const resp1 = await axios.get('https://go-books-scrapper.herokuapp.com/bestsellers');
   const bestsellers = resp1.data.books;
 
   loop1: for (let index = 0; index <= 36; index++) {
