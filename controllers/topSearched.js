@@ -1,16 +1,16 @@
 const axios = require('axios').default;
 const { redisGet, redisSet } = require('../redis');
 
-const bestsellersController = async (req, res, next) => {
+const topSearchedController = async (req, res, next) => {
   const booksObj = [];
   var count = 0;
 
   const resp1 = await axios.get(
-    'https://go-books-scrapper.herokuapp.com/bestsellers'
+    'https://go-books-scrapper.herokuapp.com/top-searched'
   );
   const books = resp1.data.books;
 
-  loop1: for (let index = 0; index <= 36; index++) {
+  loop1: for (let index = 0; index <= 8; index++) {
     // const URI = `http://openlibrary.org/search.json?title=${bestsellers[index]}`;
 
     const result = await redisGet(books[index]);
@@ -55,4 +55,4 @@ const bestsellersController = async (req, res, next) => {
   res.json(booksObj);
 };
 
-module.exports = bestsellersController;
+module.exports = topSearchedController;
