@@ -6,11 +6,13 @@
 
 const express = require('express'); // Import Express
 const router = require('./routes');
+const helmet = require('helmet');
 
 const app = express(); // Create an Express App
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(helmet());
 
 app.use(router);
 
