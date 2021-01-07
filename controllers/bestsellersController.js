@@ -52,7 +52,7 @@ const bestsellersController = async (req, res, next) => {
     count++;
   }
   console.log(`COUNT = ${count}`);
-  res.json(booksObj);
+  res.json({ books: booksObj });
 };
 
 module.exports = bestsellersController;

@@ -21,9 +21,6 @@ const topSearchedController = async (req, res, next) => {
     } else {
       const URI = `https://www.googleapis.com/books/v1/volumes?q=${books[index]}&key=AIzaSyDGkA93rBrSUj0UQqvUA_9tuO6HPCB1QfY`;
 
- 
-      
-
       const encodedURI = encodeURI(URI);
       // console.log(encodedURI);
 
@@ -55,7 +52,7 @@ const topSearchedController = async (req, res, next) => {
     count++;
   }
   console.log(`COUNT = ${count}`);
-  res.json(booksObj);
+  res.json({ books: booksObj });
 };
 
 module.exports = topSearchedController;
