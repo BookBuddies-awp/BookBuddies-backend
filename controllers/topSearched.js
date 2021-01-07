@@ -10,7 +10,7 @@ const topSearchedController = async (req, res, next) => {
   );
   const books = resp1.data.books;
 
-  loop1: for (let index = 0; index <= 8; index++) {
+  loop1: for (let index = 0; index <= 10; index++) {
     // const URI = `http://openlibrary.org/search.json?title=${bestsellers[index]}`;
 
     const result = await redisGet(books[index]);
@@ -20,6 +20,9 @@ const topSearchedController = async (req, res, next) => {
       // client.del(bestsellers[index]);
     } else {
       const URI = `https://www.googleapis.com/books/v1/volumes?q=${books[index]}&key=AIzaSyDGkA93rBrSUj0UQqvUA_9tuO6HPCB1QfY`;
+
+ 
+      
 
       const encodedURI = encodeURI(URI);
       // console.log(encodedURI);
