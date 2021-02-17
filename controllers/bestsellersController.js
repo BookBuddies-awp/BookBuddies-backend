@@ -13,13 +13,15 @@ const bestsellersController = async (req, res, next) => {
   loop1: for (let index = 0; index <= 36; index++) {
     // const URI = `http://openlibrary.org/search.json?title=${bestsellers[index]}`;
 
-    const result = await redisGet(books[index]);
+    const result = await redisGet(books[index].name);
 
     if (result) {
       booksObj.push(JSON.parse(result));
       // client.del(bestsellers[index]);
     } else {
-      const URI = `https://www.googleapis.com/books/v1/volumes?q=${books[index]}&key=AIzaSyDGkA93rBrSUj0UQqvUA_9tuO6HPCB1QfY`;
+      const bookName = books[index].name;
+      const bookCover = books[index].cover;
+      const URI = `https://www.googleapis.com/books/v1/volumes?q=${bookName}&key=AIzaSyDGkA93rBrSUj0UQqvUA_9tuO6HPCB1QfY`;
 
       const encodedURI = encodeURI(URI);
       // console.log(encodedURI);
@@ -39,13 +41,13 @@ const bestsellersController = async (req, res, next) => {
         publishedDate: book.volumeInfo.publishedDate,
         description: book.volumeInfo.description,
         pageCount: book.volumeInfo.pageCount,
-        coverImage: book.volumeInfo.imageLinks.thumbnail,
+        coverImage: bookCover,
         ratings: book.volumeInfo.averageRating,
       };
 
       booksObj.push(newBook);
 
-      await redisSet(books[index], JSON.stringify(newBook));
+      await redisSet(books[index].name, JSON.stringify(newBook));
     }
 
     // console.log(booksObj);
