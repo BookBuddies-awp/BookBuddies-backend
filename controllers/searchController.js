@@ -4,12 +4,13 @@ const { redisGet, redisSet } = require('../redis');
 
 const searchController = async (req, res, next) => {
   const query = req.query.q;
-  const booksObj = [];
+  var booksObj = [];
 
   const redisResult = await redisGet(query);
 
   if (redisResult) {
-    return res.json(JSON.parse(redisResult));
+    booksObj = JSON.parse(redisResult);
+    return res.json({ books: booksObj });
   } else {
     const URI = `https://www.googleapis.com/books/v1/volumes?q=${query}&key=AIzaSyDGkA93rBrSUj0UQqvUA_9tuO6HPCB1QfY`;
 
