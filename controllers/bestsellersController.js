@@ -40,6 +40,7 @@ const bestsellersController = async (req, res, next) => {
         authors: book.volumeInfo.authors,
         publishedDate: book.volumeInfo.publishedDate,
         description: book.volumeInfo.description,
+        categories: book.volumeInfo.categories,
         pageCount: book.volumeInfo.pageCount,
         coverImage: bookCover,
         ratings: book.volumeInfo.averageRating,
