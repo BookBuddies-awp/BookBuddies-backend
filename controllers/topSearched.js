@@ -48,7 +48,7 @@ const topSearchedController = async (req, res, next) => {
 
       booksObj.push(newBook);
 
-      await redisSet(books[index], JSON.stringify(newBook));
+      await redisSet(books[index].name, JSON.stringify(newBook));
     }
 
     // console.log(booksObj);
