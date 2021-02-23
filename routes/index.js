@@ -6,7 +6,7 @@ const bestsellersController = require('../controllers/bestsellersController');
 const searchController = require('../controllers/searchController');
 const bookController = require('../controllers/bookController');
 const topSearchedController = require('../controllers/topSearched');
-
+const downloadController = require('../controllers/downloadController');
 /* GET homepage. */
 router.get('/', homeController);
 
@@ -21,5 +21,8 @@ router.get('/api/search', searchController);
 
 /* GET Book Details Endpoint */
 router.get('/api/book', bookController);
+
+/* GET Download Info Endpoint */
+router.get('/api/download', downloadController);
 
 module.exports = router;

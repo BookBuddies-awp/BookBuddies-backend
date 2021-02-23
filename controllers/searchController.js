@@ -25,18 +25,33 @@ const searchController = async (req, res, next) => {
       if (book.volumeInfo.imageLinks === undefined) {
         return;
       }
+      var newBook;
 
-      const newBook = {
-        id: book.id,
-        title: book.volumeInfo.title,
-        authors: book.volumeInfo.authors,
-        publishedDate: book.volumeInfo.publishedDate,
-        description: book.volumeInfo.description,
-        categories: book.volumeInfo.categories,
-        pageCount: book.volumeInfo.pageCount,
-        coverImage: book.volumeInfo.imageLinks.thumbnail,
-        ratings: book.volumeInfo.averageRating,
-      };
+      if (book.volumeInfo.subtitle !== undefined) {
+        newBook = {
+          id: book.id,
+          title: book.volumeInfo.title + ': ' + book.volumeInfo.subtitle,
+          authors: book.volumeInfo.authors,
+          publishedDate: book.volumeInfo.publishedDate,
+          description: book.volumeInfo.description,
+          categories: book.volumeInfo.categories,
+          pageCount: book.volumeInfo.pageCount,
+          coverImage: book.volumeInfo.imageLinks.thumbnail,
+          ratings: book.volumeInfo.averageRating,
+        };
+      } else {
+        newBook = {
+          id: book.id,
+          title: book.volumeInfo.title,
+          authors: book.volumeInfo.authors,
+          publishedDate: book.volumeInfo.publishedDate,
+          description: book.volumeInfo.description,
+          categories: book.volumeInfo.categories,
+          pageCount: book.volumeInfo.pageCount,
+          coverImage: book.volumeInfo.imageLinks.thumbnail,
+          ratings: book.volumeInfo.averageRating,
+        };
+      }
 
       booksObj.push(newBook);
     });

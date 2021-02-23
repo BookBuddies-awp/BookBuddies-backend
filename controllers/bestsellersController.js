@@ -35,17 +35,33 @@ const bestsellersController = async (req, res, next) => {
           continue loop1;
         }
 
-        const newBook = {
-          id: book.id,
-          title: book.volumeInfo.title,
-          authors: book.volumeInfo.authors,
-          publishedDate: book.volumeInfo.publishedDate,
-          description: book.volumeInfo.description,
-          categories: book.volumeInfo.categories,
-          pageCount: book.volumeInfo.pageCount,
-          coverImage: bookCover,
-          ratings: book.volumeInfo.averageRating,
-        };
+        var newBook;
+
+        if (book.volumeInfo.subtitle !== undefined) {
+          newBook = {
+            id: book.id,
+            title: book.volumeInfo.title + ': ' + book.volumeInfo.subtitle,
+            authors: book.volumeInfo.authors,
+            publishedDate: book.volumeInfo.publishedDate,
+            description: book.volumeInfo.description,
+            categories: book.volumeInfo.categories,
+            pageCount: book.volumeInfo.pageCount,
+            coverImage: bookCover,
+            ratings: book.volumeInfo.averageRating,
+          };
+        } else {
+          newBook = {
+            id: book.id,
+            title: book.volumeInfo.title,
+            authors: book.volumeInfo.authors,
+            publishedDate: book.volumeInfo.publishedDate,
+            description: book.volumeInfo.description,
+            categories: book.volumeInfo.categories,
+            pageCount: book.volumeInfo.pageCount,
+            coverImage: bookCover,
+            ratings: book.volumeInfo.averageRating,
+          };
+        }
 
         booksObj.push(newBook);
 
