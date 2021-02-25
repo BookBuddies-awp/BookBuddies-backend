@@ -21,13 +21,40 @@ const downloadController = async (req, res, next) => {
         mirror: urlString,
         query: bookTitle,
         count: 5,
+        sort_by: 'extension',
       };
 
-      const data = await libgen.search(options);
+      const queryResults = await libgen.search(options);
 
       // const parsedData = JSON.parse(data);
 
-      const md5 = data[0].md5;
+      var extension;
+
+      for (const result of queryResults) {
+        if (result.extension === 'epub') {
+          extension = 'epub';
+          md5 = result.md5;
+          break;
+        } else if (result.extension === 'pdf') {
+          extension = 'pdf';
+          md5 = result.md5;
+          break;
+        } else {
+          extension = 'invalid';
+          md5 = result.md5;
+        }
+      }
+
+      // if (queryResults.find((result) => result.extension))
+      // const index = queryResults.findIndex(
+      //   (element) => element.extension === extension
+      // );
+
+      // console.log(index);
+
+      // const md5 = queryResults[0].md5;
+
+      console.log(md5);
 
       const url = await libgen.utils.check.canDownload(md5);
 
@@ -36,6 +63,8 @@ const downloadController = async (req, res, next) => {
       const resObject = {
         download: downloadLink,
         url: url,
+        extension,
+        data: queryResults,
         message: 'ok',
       };
 
