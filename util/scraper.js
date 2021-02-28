@@ -7,7 +7,7 @@ const scrapeURL = async (url) => {
   console.log('Scraping ' + url);
   const $ = cheerio.load(data);
 
-  const cloudflareLink = $('#download > ul > li:nth-child(1) > a').attr('href');
+  const cloudflareLink = $('#download > ul > li:nth-child(3) > a').attr('href');
 
   return cloudflareLink;
 };
