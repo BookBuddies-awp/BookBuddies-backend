@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "tsc-watch --onSuccess \"nodemon ./dist/server.js \"",
-    "dev": "nodemon app.js"
+    "dev": "pm2 start dist/server.js"
   },
   "engines": {
     "node": "15.8.x"
@@ -39,6 +39,7 @@
     "express-jwt": "^6.0.0",
     "helmet": "^4.3.1",
     "libgen": "^2.1.0",
+    "pm2": "^4.5.5",
     "redis": "^3.0.2",
     "tsc-watch": "^4.2.9",
     "tslint": "^6.1.3"
