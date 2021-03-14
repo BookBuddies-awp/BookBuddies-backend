@@ -4,21 +4,25 @@
 
 // To start the app use `npm start` in the command prompt and go to `localhost:3000` on the browser
 
-const express = require('express'); // Import Express
-const router = require('./routes');
-const helmet = require('helmet');
-const tokenChecker = require('./middlewares/tokenChecker');
+// const express = require('express');// Import Express
 
-const app = express(); // Create an Express App
+import express, { Express, urlencoded, json } from 'express';
+import helmet from 'helmet';
 
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+import router from './routes/index';
+
+import tokenChecker from './middlewares/tokenChecker';
+
+const app: Express = express(); // Create an Express App
+
+app.use(urlencoded({ extended: false }));
+app.use(json());
 app.use(helmet());
 app.use(tokenChecker);
 
 app.use(router);
 
-const PORT = process.env.PORT || 8080;
+const PORT: string = process.env.PORT || '8080';
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}!`);

@@ -1,19 +1,29 @@
 const libgen = require('libgen');
-const scrapeURL = require('../util/scraper');
-const { redisGet, redisSet } = require('../redis');
+import { RequestHandler } from 'express';
 
-const downloadController = async (req, res, next) => {
-  const bookTitle = req.query.title;
+import { redisGet, redisSet } from '../redis';
+import scrapeURL from '../util/scraper';
+
+interface downloadObj {
+  download: string;
+  url: string;
+  extension: string;
+  data: any[];
+  message: string;
+}
+
+const downloadController: RequestHandler = async (req, res, next) => {
+  const bookTitle = req.query.title as string;
 
   const redisResult = await redisGet(bookTitle + '-ddl');
 
   if (redisResult) {
-    const resObject = JSON.parse(redisResult);
+    const resObject = JSON.parse(redisResult) as string;
 
     return res.status(200).json(resObject);
   } else {
     try {
-      const urlString = await libgen.mirror();
+      const urlString: string = await libgen.mirror();
 
       console.log(`${urlString} is currently the fastest`);
 
@@ -28,7 +38,8 @@ const downloadController = async (req, res, next) => {
 
       // const parsedData = JSON.parse(data);
 
-      var extension;
+      var extension: string = '';
+      var md5: string = '';
 
       for (const result of queryResults) {
         if (result.extension === 'epub') {
@@ -45,22 +56,11 @@ const downloadController = async (req, res, next) => {
         }
       }
 
-      // if (queryResults.find((result) => result.extension))
-      // const index = queryResults.findIndex(
-      //   (element) => element.extension === extension
-      // );
-
-      // console.log(index);
-
-      // const md5 = queryResults[0].md5;
-
-      console.log(md5);
-
-      const url = await libgen.utils.check.canDownload(md5);
+      const url = (await libgen.utils.check.canDownload(md5)) as string;
 
       const downloadLink = await scrapeURL(url);
 
-      const resObject = {
+      const resObject: downloadObj = {
         download: downloadLink,
         url: url,
         extension,
@@ -80,4 +80,4 @@ const downloadController = async (req, res, next) => {
   }
 };
 
-module.exports = downloadController;
+export default downloadController;

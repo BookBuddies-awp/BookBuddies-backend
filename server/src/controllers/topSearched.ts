@@ -1,7 +1,9 @@
-const axios = require('axios').default;
-const { redisGet, redisSet } = require('../redis');
+import { RequestHandler } from 'express';
+import axios from 'axios';
 
-const topSearchedController = async (req, res, next) => {
+import { redisGet, redisSet } from '../redis';
+
+const topSearchedController: RequestHandler = async (req, res, next) => {
   const booksObj = [];
   var count = 0;
 
@@ -74,4 +76,4 @@ const topSearchedController = async (req, res, next) => {
   res.json({ books: booksObj });
 };
 
-module.exports = topSearchedController;
+export default topSearchedController;

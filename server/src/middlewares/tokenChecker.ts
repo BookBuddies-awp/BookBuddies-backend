@@ -1,5 +1,7 @@
-const tokenChecker = (req, res, next) => {
-  const token = req.header('authorization');
+import { Request, Response, NextFunction } from 'express';
+
+const tokenChecker = (req: Request, res: Response, next: NextFunction) => {
+  const token: string = req.header('authorization') as string;
 
   if (typeof token !== undefined && token === process.env.AUTH_TOKEN) {
     console.log('Authorized User');
@@ -15,4 +17,4 @@ const tokenChecker = (req, res, next) => {
   }
 };
 
-module.exports = tokenChecker;
+export default tokenChecker;
