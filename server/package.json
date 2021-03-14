@@ -1,0 +1,36 @@
+{
+  "name": "bookbuddies--backend",
+  "version": "1.0.0",
+  "description": "A backend for BookBuddies App made with Node",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "engines": {
+    "node": "15.8.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BookBuddies/BookBuddies--backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BookBuddies/BookBuddies--backend/issues"
+  },
+  "homepage": "https://github.com/BookBuddies/BookBuddies--backend#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
+    "cheerio": "^1.0.0-rc.5",
+    "express": "^4.17.1",
+    "express-jwt": "^6.0.0",
+    "helmet": "^4.3.1",
+    "libgen": "^2.1.0",
+    "redis": "^3.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
