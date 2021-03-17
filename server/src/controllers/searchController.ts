@@ -38,35 +38,11 @@ const searchController: RequestHandler = async (req, res, next) => {
         averageRating,
       } = book.volumeInfo;
 
-      const bookCover: string = book.volumeInfo.imageLinks.thumbnail;
+      var bookCover: string = book.volumeInfo.imageLinks.thumbnail;
+
+      bookCover = bookCover.replace('http', 'https');
 
       var newBook;
-
-      // if (book.volumeInfo.subtitle !== undefined) {
-      //   newBook = {
-      //     id: book.id,
-      //     title: book.volumeInfo.title + ': ' + book.volumeInfo.subtitle,
-      //     authors: book.volumeInfo.authors,
-      //     publishedDate: book.volumeInfo.publishedDate,
-      //     description: book.volumeInfo.description,
-      //     categories: book.volumeInfo.categories,
-      //     pageCount: book.volumeInfo.pageCount,
-      //     coverImage: book.volumeInfo.imageLinks.thumbnail,
-      //     ratings: book.volumeInfo.averageRating,
-      //   };
-      // } else {
-      //   newBook = {
-      //     id: book.id,
-      //     title: book.volumeInfo.title,
-      //     authors: book.volumeInfo.authors,
-      //     publishedDate: book.volumeInfo.publishedDate,
-      //     description: book.volumeInfo.description,
-      //     categories: book.volumeInfo.categories,
-      //     pageCount: book.volumeInfo.pageCount,
-      //     coverImage: book.volumeInfo.imageLinks.thumbnail,
-      //     ratings: book.volumeInfo.averageRating,
-      //   };
-      // }
 
       newBook = new Book(
         book.id,

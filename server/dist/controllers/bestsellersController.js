@@ -74,7 +74,7 @@ const bestsellersController = async (req, res, next) => {
         count++;
     }
     console.log(`COUNT = ${count}`);
-    res.json({ books: booksObj });
+    res.json(booksObj);
 };
 exports.default = bestsellersController;
 //# sourceMappingURL=bestsellersController.js.map

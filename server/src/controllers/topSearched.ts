@@ -22,7 +22,8 @@ const topSearchedController: RequestHandler = async (req, res, next) => {
       // client.del(bestsellers[index]);
     } else {
       const bookName = books[index].name;
-      const bookCover = books[index].cover.replaceAll('200', '400');
+      var bookCover: string = books[index].cover.split('200').join('400');
+      bookCover = bookCover.replace('SR400', 'SR270');
       const URI = `https://www.googleapis.com/books/v1/volumes?q=${bookName}&key=AIzaSyDGkA93rBrSUj0UQqvUA_9tuO6HPCB1QfY`;
 
       const encodedURI = encodeURI(URI);

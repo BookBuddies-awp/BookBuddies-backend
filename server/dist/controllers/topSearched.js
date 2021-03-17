@@ -19,7 +19,8 @@ const topSearchedController = async (req, res, next) => {
         }
         else {
             const bookName = books[index].name;
-            const bookCover = books[index].cover.replaceAll('200', '400');
+            var bookCover = books[index].cover.split('200').join('400');
+            bookCover = bookCover.replace('SR400', 'SR270');
             const URI = `https://www.googleapis.com/books/v1/volumes?q=${bookName}&key=AIzaSyDGkA93rBrSUj0UQqvUA_9tuO6HPCB1QfY`;
             const encodedURI = encodeURI(URI);
             // console.log(encodedURI);
@@ -63,7 +64,7 @@ const topSearchedController = async (req, res, next) => {
         count++;
     }
     console.log(`COUNT = ${count}`);
-    res.json({ books: booksObj });
+    res.json(booksObj);
 };
 exports.default = topSearchedController;
 //# sourceMappingURL=topSearched.js.map

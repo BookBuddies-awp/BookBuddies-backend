@@ -12,7 +12,7 @@ const searchController = async (req, res, next) => {
     const redisResult = await redis_1.redisGet(query);
     if (redisResult) {
         booksObj = JSON.parse(redisResult);
-        return res.json({ books: booksObj });
+        return res.json(booksObj);
     }
     else {
         const URI = `https://www.googleapis.com/books/v1/volumes?q=${query}&key=AIzaSyDGkA93rBrSUj0UQqvUA_9tuO6HPCB1QfY`;
@@ -25,33 +25,9 @@ const searchController = async (req, res, next) => {
                 return;
             }
             const { title, authors, publishedDate, description, categories, pageCount, averageRating, } = book.volumeInfo;
-            const bookCover = book.volumeInfo.imageLinks.thumbnail;
+            var bookCover = book.volumeInfo.imageLinks.thumbnail;
+            bookCover = bookCover.replace('http', 'https');
             var newBook;
-            // if (book.volumeInfo.subtitle !== undefined) {
-            //   newBook = {
-            //     id: book.id,
-            //     title: book.volumeInfo.title + ': ' + book.volumeInfo.subtitle,
-            //     authors: book.volumeInfo.authors,
-            //     publishedDate: book.volumeInfo.publishedDate,
-            //     description: book.volumeInfo.description,
-            //     categories: book.volumeInfo.categories,
-            //     pageCount: book.volumeInfo.pageCount,
-            //     coverImage: book.volumeInfo.imageLinks.thumbnail,
-            //     ratings: book.volumeInfo.averageRating,
-            //   };
-            // } else {
-            //   newBook = {
-            //     id: book.id,
-            //     title: book.volumeInfo.title,
-            //     authors: book.volumeInfo.authors,
-            //     publishedDate: book.volumeInfo.publishedDate,
-            //     description: book.volumeInfo.description,
-            //     categories: book.volumeInfo.categories,
-            //     pageCount: book.volumeInfo.pageCount,
-            //     coverImage: book.volumeInfo.imageLinks.thumbnail,
-            //     ratings: book.volumeInfo.averageRating,
-            //   };
-            // }
             newBook = new book_1.default(book.id, title, authors, publishedDate, description, categories, pageCount, bookCover, averageRating);
             if (book.volumeInfo.subtitle !== undefined) {
                 newBook.title = newBook.title + book.volumeInfo.subtitle;
@@ -61,7 +37,7 @@ const searchController = async (req, res, next) => {
         await redis_1.redisSet(query, JSON.stringify(booksObj));
     }
     console.log(query);
-    return res.json({ books: booksObj });
+    return res.json(booksObj);
 };
 exports.default = searchController;
 //# sourceMappingURL=searchController.js.map
