@@ -73,7 +73,7 @@ const topSearchedController: RequestHandler = async (req, res, next) => {
     count++;
   }
   console.log(`COUNT = ${count}`);
-  res.json({ books: booksObj });
+  res.json(booksObj);
 };
 
 export default topSearchedController;

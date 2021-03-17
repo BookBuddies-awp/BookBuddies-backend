@@ -12,7 +12,7 @@ const searchController: RequestHandler = async (req, res, next) => {
 
   if (redisResult) {
     booksObj = JSON.parse(redisResult);
-    return res.json({ books: booksObj });
+    return res.json(booksObj);
   } else {
     const URI = `https://www.googleapis.com/books/v1/volumes?q=${query}&key=AIzaSyDGkA93rBrSUj0UQqvUA_9tuO6HPCB1QfY`;
 
@@ -89,7 +89,7 @@ const searchController: RequestHandler = async (req, res, next) => {
     await redisSet(query, JSON.stringify(booksObj));
   }
   console.log(query);
-  return res.json({ books: booksObj });
+  return res.json(booksObj);
 };
 
 export default searchController;
