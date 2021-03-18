@@ -9,7 +9,7 @@ const scrapeURL = async (url) => {
     const { data } = await axios_1.default.get(url);
     console.log('Scraping ' + url);
     const $ = cheerio_1.default.load(data);
-    const cloudflareLink = $('#download > ul > li:nth-child(3) > a').attr('href');
+    const cloudflareLink = $('#download > ul > li:nth-child(2) > a').attr('href');
     return cloudflareLink;
 };
 exports.default = scrapeURL;

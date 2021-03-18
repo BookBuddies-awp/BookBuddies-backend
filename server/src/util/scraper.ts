@@ -1,5 +1,5 @@
-import cheerio from 'cheerio'
-import axios from 'axios'
+import cheerio from 'cheerio';
+import axios from 'axios';
 
 const scrapeURL = async (url: string): Promise<string> => {
   const { data } = await axios.get(url);
@@ -7,7 +7,9 @@ const scrapeURL = async (url: string): Promise<string> => {
   console.log('Scraping ' + url);
   const $ = cheerio.load(data);
 
-  const cloudflareLink: string = $('#download > ul > li:nth-child(3) > a').attr('href') as string;
+  const cloudflareLink: string = $('#download > ul > li:nth-child(2) > a').attr(
+    'href'
+  ) as string;
 
   return cloudflareLink;
 };
