@@ -40,6 +40,12 @@ const downloadController: RequestHandler = async (req, res, next) => {
       var extension: string = '';
       var md5: string = '';
 
+      if (!queryResults.length || queryResults.length === 0) {
+        return res.status(404).json({
+          message: 'No book found to download. Try again later.',
+        });
+      }
+
       for (const result of queryResults) {
         if (result.extension === 'epub') {
           extension = 'epub';

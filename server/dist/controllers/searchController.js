@@ -30,7 +30,7 @@ const searchController = async (req, res, next) => {
             var newBook;
             newBook = new book_1.default(book.id, title, authors, publishedDate, description, categories, pageCount, bookCover, averageRating);
             if (book.volumeInfo.subtitle !== undefined) {
-                newBook.title = newBook.title + book.volumeInfo.subtitle;
+                newBook.title = newBook.title + ': ' + book.volumeInfo.subtitle;
             }
             booksObj.push(newBook);
         });

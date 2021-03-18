@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = __importDefault(require("axios"));
 const redis_1 = require("../redis");
+const book_1 = __importDefault(require("../models/book"));
 const topSearchedController = async (req, res, next) => {
     const booksObj = [];
     var count = 0;
@@ -30,32 +31,11 @@ const topSearchedController = async (req, res, next) => {
             if (book.volumeInfo.imageLinks === undefined) {
                 continue loop1;
             }
+            const { title, authors, publishedDate, description, categories, pageCount, averageRating, } = book.volumeInfo;
             var newBook;
+            newBook = new book_1.default(book.id, title, authors, publishedDate, description, categories, pageCount, bookCover, averageRating);
             if (book.volumeInfo.subtitle !== undefined) {
-                newBook = {
-                    id: book.id,
-                    title: book.volumeInfo.title + ': ' + book.volumeInfo.subtitle,
-                    authors: book.volumeInfo.authors,
-                    publishedDate: book.volumeInfo.publishedDate,
-                    description: book.volumeInfo.description,
-                    categories: book.volumeInfo.categories,
-                    pageCount: book.volumeInfo.pageCount,
-                    coverImage: bookCover,
-                    ratings: book.volumeInfo.averageRating,
-                };
-            }
-            else {
-                newBook = {
-                    id: book.id,
-                    title: book.volumeInfo.title,
-                    authors: book.volumeInfo.authors,
-                    publishedDate: book.volumeInfo.publishedDate,
-                    description: book.volumeInfo.description,
-                    categories: book.volumeInfo.categories,
-                    pageCount: book.volumeInfo.pageCount,
-                    coverImage: bookCover,
-                    ratings: book.volumeInfo.averageRating,
-                };
+                newBook.title = newBook.title + ': ' + book.volumeInfo.subtitle;
             }
             booksObj.push(newBook);
             await redis_1.redisSet(books[index].name, JSON.stringify(newBook));

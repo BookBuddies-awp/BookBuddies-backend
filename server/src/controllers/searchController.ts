@@ -57,7 +57,7 @@ const searchController: RequestHandler = async (req, res, next) => {
       );
 
       if (book.volumeInfo.subtitle !== undefined) {
-        newBook.title = newBook.title + book.volumeInfo.subtitle;
+        newBook.title = newBook.title + ': ' + book.volumeInfo.subtitle;
       }
 
       booksObj.push(newBook);
