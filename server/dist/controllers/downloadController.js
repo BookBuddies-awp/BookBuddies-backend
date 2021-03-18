@@ -49,7 +49,6 @@ const downloadController = async (req, res, next) => {
                 download: downloadLink,
                 url: url,
                 extension,
-                data: queryResults,
                 message: 'ok',
             };
             await redis_1.redisSet(bookTitle + '-ddl', JSON.stringify(resObject));

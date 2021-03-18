@@ -8,7 +8,6 @@ interface downloadObj {
   download: string;
   url: string;
   extension: string;
-  data: any[];
   message: string;
 }
 
@@ -64,7 +63,6 @@ const downloadController: RequestHandler = async (req, res, next) => {
         download: downloadLink,
         url: url,
         extension,
-        data: queryResults,
         message: 'ok',
       };
 
