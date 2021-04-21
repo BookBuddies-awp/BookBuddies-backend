@@ -28,9 +28,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // const express = require('express');// Import Express
 const express_1 = __importStar(require("express"));
 const helmet_1 = __importDefault(require("helmet"));
+const cors_1 = __importDefault(require("cors"));
 const index_1 = __importDefault(require("./routes/index"));
 const tokenChecker_1 = __importDefault(require("./middlewares/tokenChecker"));
 const app = express_1.default(); // Create an Express App
+app.use(cors_1.default());
 app.use(express_1.urlencoded({ extended: false }));
 app.use(express_1.json());
 app.use(helmet_1.default());

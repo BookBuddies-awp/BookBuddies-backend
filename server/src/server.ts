@@ -15,10 +15,10 @@ import router from './routes/index';
 import tokenChecker from './middlewares/tokenChecker';
 
 const app: Express = express(); // Create an Express App
+app.use(cors());
 
 app.use(urlencoded({ extended: false }));
 app.use(json());
-app.use(cors());
 app.use(helmet());
 app.use(tokenChecker);
 
