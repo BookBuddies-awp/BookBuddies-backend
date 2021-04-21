@@ -8,6 +8,7 @@
 
 import express, { Express, urlencoded, json } from 'express';
 import helmet from 'helmet';
+import cors from 'cors';
 
 import router from './routes/index';
 
@@ -17,6 +18,7 @@ const app: Express = express(); // Create an Express App
 
 app.use(urlencoded({ extended: false }));
 app.use(json());
+app.use(cors());
 app.use(helmet());
 app.use(tokenChecker);
 
